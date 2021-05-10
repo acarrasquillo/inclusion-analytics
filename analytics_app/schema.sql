@@ -1,0 +1,38 @@
+DROP TABLE IF EXISTS program;
+DROP TABLE IF EXISTS program_genre;
+DROP TABLE IF EXISTS program_network;
+DROP TABLE IF EXISTS town;
+DROP TABLE IF EXISTS viewers;
+
+CREATE TABLE program (
+	id INTEGER PRIMARY KEY AUTOINCREMENT,
+	title TEXT UNIQUE NOT NULL
+);
+
+CREATE TABLE program_genre (
+	id INTEGER PRIMARY KEY AUTOINCREMENT,
+	name TEXT UNIQUE NOT NULL
+);
+
+CREATE TABLE program_network (
+	id INTEGER PRIMARY KEY AUTOINCREMENT,
+	name TEXT UNIQUE NOT NULL
+);
+
+CREATE TABLE town (
+	id INTEGER PRIMARY KEY AUTOINCREMENT,
+	name TEXT UNIQUE NOT NULL
+);
+
+CREATE TABLE viewers (
+	id INTEGER PRIMARY KEY AUTOINCREMENT,
+	viewers_number INTEGER,
+	title_id INTEGER NOT NULL,
+	genre_id INTEGER NOT NULL,
+	network_id INTEGER NOT NULL,
+	hometown_id INTEGER NOT NULL,
+	FOREIGN KEY (title_id) REFERENCES program (id),
+	FOREIGN KEY (genre_id) REFERENCES program_genre (id),
+	FOREIGN KEY (network_id) REFERENCES program_network (id),
+	FOREIGN KEY (hometown_id) REFERENCES town (id)
+);

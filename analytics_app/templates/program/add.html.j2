@@ -1,0 +1,19 @@
+{% extends 'base.html.j2' %}
+
+{% block main_header %}
+	<h1 class="h2">{% block title %}Programs{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+
+	{# form add a program #}
+	<form method="post">
+	  <div class="mb-3">
+	    <label for="title" class="form-label">Program title</label>
+	    <input name="title" class="form-control" id="title" aria-describedby="titleHelp" required>
+	    <div id="titleHelp" class="form-text">Enter the name of the program you would like to add</div>
+	  </div>
+	  <button type="submit" class="btn btn-primary" value="Add">Add program</button>
+	</form>
+
+{% endblock %}

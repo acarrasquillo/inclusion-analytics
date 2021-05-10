@@ -1,0 +1,37 @@
+{% extends 'base.html.j2' %}
+
+{% block main_header %}
+	<h1 class="h2">{% block title %}Programs Views{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+
+	{# form to add a program view #}
+	<form method="post">
+	  <div class="mb-3">
+
+	    <label for="count" class="form-label">Number of Views</label>
+	    <input name="count" type="number" class="form-control" id="count" aria-describedby="countHelp" required>
+	    <div id="countHelp" class="form-text">Hometown id</div>
+
+	    <label for="town" class="form-label">Town name</label>
+	    <input name="town" type="number" class="form-control" id="town" aria-describedby="twonHelp" required>
+	    <div id="programHelp" class="form-text">Enter the viewers hometown id</div>
+
+	    <label for="program" class="form-label">Program id</label>
+	    <input name="program" type="number" class="form-control" id="program" aria-describedby="titleHelp" required>
+	    <div id="townHelp" class="form-text">Enter the viewers program title id</div>
+
+	    <label for="genre" class="form-label">Genre id</label>
+	    <input name="genre" type="number" class="form-control" id="genre" aria-describedby="genreHelp" required>
+	    <div id="genreHelp" class="form-text">Enter the program genre id</div>
+
+	    <label for="network" class="form-label">Program network id</label>
+	    <input name="network" type="number" class="form-control" id="network" aria-describedby="networkHelp" required>
+	    <div id="networkHelp" class="form-text">Enter the program Network id</div>
+
+	  </div>
+	  <button type="submit" class="btn btn-primary" value="Add">Add Views</button>
+	</form>
+
+{% endblock %}
