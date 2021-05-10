@@ -1,11 +1,55 @@
 {% extends 'base.html.j2' %}
 
 {% block main_header %}
-	<h1 class="h2">{% block title %}Data dashboard{% endblock %}</h1>
+	<h1 class="h2">{% block title %}Data view{% endblock %}</h1>
 {% endblock %}
 
 {% block content %}
 
+      {# form add a viewers town #}
+  <form method="post">
+    {# <div class="mb-3">
+      <label for="genre" class="form-label">Genre</label>
+      <input name="genre" class="form-control" id="genre" aria-describedby="genreHelp" required>
+      <div id="genreHelp" class="form-text">Select a genre to filter by</div>
+    </div> #}
+    {# genre single selection #} 
+    <label for="exampleRadios1" class="form-label"><span data-feather="film"></span> Filter by a program genre</label><br>
+    {% for genre in genres %}
+    <div class="form-check form-check-inline">
+      {% if filtered_genre|string == genre.id|string %}
+      <input class="btn-check" type="radio" name="genre" id="genre{{ genre.id }}" value="{{ genre.id }}" autocomplete="off" checked>
+      {% else %}
+      <input class="btn-check" type="radio" name="genre" id="genre{{ genre.id }}" value="{{ genre.id }}" autocomplete="off">
+      {% endif %}
+      <label class="btn btn-outline-primary" for="genre{{ genre.id }}">{{ genre.name }}</label><br>
+    </div>
+    {% endfor %}
+    <hr>
+    <label for="inlineCheckbox1" class="form-label"><span data-feather="home"></span> Filter by one or more viewer hometowns</label><br>
+    {# towns multiple selection #}
+    {% for town in towns %}
+      <div class="form-check form-check-inline">
+      {% if town.id|string in filtered_towns %}
+      <input class="btn-check" type="checkbox" name="town{{ town.id }}" id="town{{ town.id }}" value="{{ town.id }}" autocomplete="off" checked>
+      {% else %}
+      <input class="btn-check" type="checkbox" name="town{{ town.id }}" id="town{{ town.id }}" value="{{ town.id }}" autocomplete="off">
+      {% endif %}
+      <label class="btn btn-outline-secondary" for="town{{ town.id }}">{{ town.name }}</label><br>
+    </div>
+    {% endfor %}
+    <br>
+    <hr>
+    <button type="submit" class="btn btn-primary" value="Filter">Filter</button>
+  </form>
+    <br>
+
+    {% if filter_count_sum != None %}
+    <div class="alert alert-info" role="alert">
+     The total number of viewers for the selected filters is {{ filter_count_sum["total_viewers"] }}
+    </div>
+    {% endif %}
+    <h2 class="h2"> Filtered data </h2>
     {% if rows|length > 0 %}
 	{# dashboard content #}
 	{% set columns = rows[0].keys() %}
