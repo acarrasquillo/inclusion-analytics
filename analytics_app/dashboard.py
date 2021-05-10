@@ -49,7 +49,6 @@ def view():
             town_id_list='('
             for form_town in form_towns:
                 # if not the last element in the list add a comma
-                print(form_town)
                 if form_town != form_towns[-1]:
                     town_id_list+=f'{form_town},'
                 else:
