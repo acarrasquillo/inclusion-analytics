@@ -10,6 +10,9 @@ bp =  Blueprint('network', __name__, url_prefix='/network')
 
 @bp.route('/add', methods=('GET','POST'))
 def add():
+	db = get_db()
+	error = None
+	rows = list()
 	if request.method == 'POST':
 		# if user submits form validate input
 		network_name = request.form['name']
@@ -35,5 +38,11 @@ def add():
 			return redirect(url_for('network.add'))
 
 		flash(error)
+	elif request.method == 'GET':
+		rows = db.execute(
+		        'SELECT *'
+		        ' FROM program_network'
+    		).fetchall()
 
-	return render_template('network/add.html.j2')
+
+	return render_template('network/add.html.j2', rows=rows)

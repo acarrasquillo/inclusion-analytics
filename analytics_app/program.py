@@ -10,12 +10,14 @@ bp =  Blueprint('program', __name__, url_prefix='/program')
 
 @bp.route('/add', methods=('GET','POST'))
 def add():
+
+	# get the db connection
+	db = get_db()
+	error = None
+	rows = list()
 	if request.method == 'POST':
 		# if user submits form validate input
 		title = request.form['title']
-		# get the db connection
-		db = get_db()
-		error = None
 
 		if not title:
 			# if title is empty set error message
@@ -36,4 +38,10 @@ def add():
 
 		flash(error)
 
-	return render_template('program/add.html.j2')
+	elif request.method == 'GET':
+		rows = db.execute(
+		        'SELECT *'
+		        ' FROM program'
+    		).fetchall()
+
+	return render_template('program/add.html.j2', rows=rows)

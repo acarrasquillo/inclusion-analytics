@@ -10,6 +10,8 @@ bp =  Blueprint('views', __name__, url_prefix='/views')
 
 @bp.route('/add', methods=('GET','POST'))
 def add():
+	db = get_db()
+	error = None
 	if request.method == 'POST':
 		# if user submits form validate input
 		views_count = request.form['count']
@@ -18,8 +20,6 @@ def add():
 		views_program_genre_id = request.form['genre']
 		views_program_network_id = request.form['network']
 		# get the db connection
-		db = get_db()
-		error = None
 
 		if not (views_count and 
 			views_hometown_id and views_program_id and 
@@ -43,5 +43,10 @@ def add():
 			return redirect(url_for('views.add'))
 
 		flash(error)
+	if request.method == 'GET':
+		rows = db.execute(
+		        'SELECT *'
+		        ' FROM viewers'
+    		).fetchall()
 
-	return render_template('views/add.html.j2')
+	return render_template('views/add.html.j2', rows=rows)
